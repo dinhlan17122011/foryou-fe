@@ -1,0 +1,33 @@
+.text{
+    color: green;
+    font-weight:bold;
+    /* float: right; */
+    margin-top: 0;
+    font-size: 44px;
+}
+.tieude{
+    display: block;
+    float: right;
+    width: 300px;
+}
+.mota{
+    color: #2F2105;
+    font-size: 20px;
+}
+.img{
+    width: 80px;
+    height: 80px;
+    align-items: center;
+}
+.divgioithieu{
+    width: 150px;
+    float: left;
+    border: 2px solid green;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    padding: 15px 10px;
+}
+.descmainf{
+    text-align: center;
+}

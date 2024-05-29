@@ -1,0 +1,16 @@
+.nameimg{
+    width: 400px;
+    height: 300px;
+}
+.imgcake{
+    float:right;
+    width: 479px;
+    height: 400px;
+}
+.button{
+    font-weight:bold;
+    width: 142px;
+    background-color: orangered;
+    color: white;
+}
+

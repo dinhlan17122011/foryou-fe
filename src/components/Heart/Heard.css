@@ -1,0 +1,32 @@
+.col samp{
+    text-align: center;
+    display: flex;
+    display: inline-block;
+    position: relative;
+    justify-content: space-between;
+}
+
+.col samp::after{
+    width: 0;
+    height: 4px;
+    background-color:white;
+    content: '';
+    position: absolute;
+    bottom: 24px;
+    left: 0;
+    display: flex;
+    transition: width 1.5s;
+}
+
+.col samp:hover::after{
+    width: 100%;
+}
+
+*{
+   color:  rgba(97,152,92,var(--tw-text-opacity))
+}
+
+samp{
+    font-size: 20px;
+    font-family: Lato, Helvetica Neue, Arial, Helvetica, sans-serif;
+}
