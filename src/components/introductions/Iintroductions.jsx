@@ -22,11 +22,6 @@ const Iintroductions = () => {
             try {
                 const res = await axios.get('http://localhost:3000/introduction')
                 setProductsmainf(res.data[0].introductionmainf || [])
-                // console.log('mainf :',res.data[0].introductionmainf || []);
-                // console.log('mainf1 :',res.data[0].introductionmainf[0]);
-                // console.log('mainf2 :',res.data[0].introductionmainf[1]);
-                // console.log('mainf3 :',res.data[0].introductionmainf[2]);
-                // console.log('mainf4 :',res.data[0].introductionmainf[3]);
             } catch (error) {
                 console.log(error);
             }

@@ -1,9 +1,12 @@
-.nameimg{
+.imgname1{
     width: 400px;
     height: 300px;
+    object-fit: cover;
+    float: right;
 }
-.imgcake{
-    width: 479px;
+.img1{
+    width: 300px;
+    object-fit: cover;
 }
 .button{
     width: 16rem;
@@ -19,15 +22,24 @@
     font-weight: 700;
     cursor: pointer;
     text-transform: uppercase;
-    /* display: flex; */
 }
 .button:hover{
-    /* chuyển động */
 }
 .divbutton{
     width: 50%;
 }
-.divslider{
-    display: flex;
-    object-fit: contain;
+    
+.each-slide-effect > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  height: 350px;
+}
+
+.each-slide-effect span {
+  padding: 20px;
+  font-size: 20px;
+  background: #efefef;
+  text-align: center;
 }

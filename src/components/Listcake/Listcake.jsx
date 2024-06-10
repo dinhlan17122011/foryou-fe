@@ -17,19 +17,7 @@ const Listcake = () => {
     }, []);
   return (
     <div>
-        <div> 
-            <div className='bencanh'></div>
-            <h1 className='tieudelist'>Bánh kem sự kiện</h1>
-        </div>
-        <div>
-          
-        </div>
-        {/* {products.length > 0 && products.map((item, index) => (
-            <div className='divgioithieu'>
-                <img className='img' src={item.img} /> 
-                <p className='descmainf'>{item.describemainf}</p>
-            </div>
-    ))} */}
+        1
     </div>
   )
 }

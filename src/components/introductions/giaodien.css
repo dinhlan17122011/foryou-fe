@@ -7,8 +7,9 @@
 }
 .tieude{
     display: block;
-    float: right;
-    width: 300px;
+    float: left;
+    width: 32.33333%;
+
 }
 .mota{
     color: #2F2105;
@@ -17,17 +18,20 @@
 .img{
     width: 80px;
     height: 80px;
-    align-items: center;
+    /* margin: auto; */
+    /* align-items: center; */
+    justify-content: center;
 }
 .divgioithieu{
     width: 150px;
     float: left;
     border: 2px solid green;
     border-radius: 15px;
-    display: flex;
+    /* display: flex; */
     align-items: center;
-    padding: 15px 10px;
+    padding: 5px 10px;
 }
 .descmainf{
     text-align: center;
+    font-weight: bold;
 }
