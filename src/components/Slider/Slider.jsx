@@ -8,7 +8,7 @@ const Sliders = () => {
     useEffect(() => {
         const api = async () =>{
             try {
-                const res = await req.get('/slider')
+                const res = await axios.get('http://localhost:3000/slider')
                 setProducts(res.data[0])
 
                 console.log(res.data[0]);
@@ -22,9 +22,14 @@ const Sliders = () => {
 
     return (
         <div>
-            <img src={products.imgname} alt='img' className='nameimg'/>
-            <Button className='button' >ĐẶT BÁNH NGAY</Button>
-            <img src={products.imgcake} className='imgcake' />
+        <div className='divslider'>
+            <img src={products.nameimg} alt='img' className='nameimg'/>
+            <img src={products.img} className='imgcake' />
+        </div>
+        <div className='divbutton'>
+            <button className='button' >ĐẶT BÁNH NGAY</button>
+            </div>
+
         </div>
     );
 };

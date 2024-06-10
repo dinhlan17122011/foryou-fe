@@ -9,7 +9,7 @@
 .col samp::after{
     width: 0;
     height: 4px;
-    background-color:white;
+    background-color:black;
     content: '';
     position: absolute;
     bottom: 24px;

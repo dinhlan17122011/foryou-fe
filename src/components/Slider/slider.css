@@ -3,14 +3,31 @@
     height: 300px;
 }
 .imgcake{
-    float:right;
     width: 479px;
-    height: 400px;
 }
 .button{
-    font-weight:bold;
-    width: 142px;
-    background-color: orangered;
-    color: white;
+    width: 16rem;
+    height: 3.5rem;
+    color: rgba(255, 255, 255);
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    border-radius: 100px;
+    border-width: 0px;
+    background-color: rgba(242, 89, 75);
+    margin: 2rem auto 3rem;
+    font-family: Lexend, sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    /* display: flex; */
 }
-
+.button:hover{
+    /* chuyển động */
+}
+.divbutton{
+    width: 50%;
+}
+.divslider{
+    display: flex;
+    object-fit: contain;
+}
