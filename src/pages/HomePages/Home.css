@@ -1,7 +1,7 @@
 .div{
 }
 .listcake{
-    background-color: rgba(254,251,240,255);
+    /* background-color: rgba(254,251,240,255); */
 }
 .bosungtap{
     text-align: center;
@@ -17,5 +17,5 @@
     background: rgb(97, 160, 92);
     border-radius: 5px;
     margin: 30px auto 0px;
-    display: flex;
+    /* display: flex; */
 }
