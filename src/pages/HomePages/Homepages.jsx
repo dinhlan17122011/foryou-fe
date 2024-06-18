@@ -6,13 +6,13 @@ import Iintroductions from '../../components/introductions/Iintroductions.jsx'
 import './Home.css'
 import Heart from '../../components/Heart/Heart.jsx'
 import Listcake from '../../components/Listcake/Listcake.jsx'
+import Policies from '../../components/policies/policies.jsx'
 const Homepages = () => {
   return (
     <div >
-      <div className='div'>
+      <div className='div' style={{padding:'0 110px'}}>
       <Heart />
       <Sliders />
-      </div>
       <img src={le1} style={{width:'1000px'}} />
       <Iintroductions />
       <img src={le2} style={{width:'1000px'}} />
@@ -21,8 +21,11 @@ const Homepages = () => {
         <div className='duoi'></div>
         <p  className='pbosungtap' > Mời bạn xem ngay hơn 100 mẫu bánh kem, bánh sinh nhật tươi ngon, đa dạng, giá chỉ từ 120k</p>
       <Listcake />
+      <Policies />
+      </div>
 
       </div>
+      none
     </div>
   )
 }

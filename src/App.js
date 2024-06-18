@@ -5,7 +5,7 @@ import {routes}from './routes'
 import Heart from './components/Heart/Heart';
 function App() {
   return (
-    <div className="App" style={{padding:'0 110px',marginTop:'20px'}}>
+    <div className="App" style={{marginTop:'20px'}}>
       <Router>
       <Routes>
         {routes.map((route)=>{
