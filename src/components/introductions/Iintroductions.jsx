@@ -37,7 +37,7 @@ const Iintroductions = () => {
         <p className='mota'>{products.describe}</p>
         </div>
         {productsmainf.length > 0 && productsmainf.map((item, index) => (
-            <div className='divgioithieu'>
+            <div className='divgioithieu' key={index.id}>
                 <img className='img' src={item.img} /> 
                 <p className='descmainf'>{item.describemainf}</p>
             </div>

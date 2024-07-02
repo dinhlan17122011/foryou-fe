@@ -12,8 +12,7 @@ const Sliders = () => {
             try {
                 const res = await axios.get('http://localhost:3000/slider')
                 setProducts(res.data[0] || [])
-
-                console.log(res.data[0]);
+                // console.log(res.data[0]);
             } catch (error) {
                 console.log(error);
             }

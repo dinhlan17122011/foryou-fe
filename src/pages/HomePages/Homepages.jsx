@@ -10,7 +10,7 @@ import Policies from '../../components/policies/policies.jsx'
 const Homepages = () => {
   return (
     <div >
-      <div className='div' style={{padding:'0 110px'}}>
+      <div className='div' style={{padding:'0 110px',marginTop:'20px'}}>
       <Heart />
       <Sliders />
       <img src={le1} style={{width:'1000px'}} />

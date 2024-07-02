@@ -8,13 +8,11 @@ const Policies = () => {
         const fetchDataimg = async () => {
           try {
             const res = await axios.get('http://localhost:3000/policy');
-            if (Array.isArray(res.data)) {
-              setProductsimg(res.data[0]);
-              console.log(res.data[0].img[0]);
-            } else {
-              console.error('API response is not an array:', res.data);
-              setProductsimg([]);
-            }
+              setProductsimg(res.data[0].img);
+              console.log('img',res.data[0].img);
+              console.log('response', res.data[0])
+              // console.log(setProductsimg);
+              console.log(res);
           } catch (error) {
             console.error('Error fetching data:', error);
             setProductsimg([]);
@@ -53,8 +51,8 @@ const Policies = () => {
           <div key={index}>
             <p>{product.title}</p>
             {Array.isArray(productsimg) ? (
-              product.img.map((image, imgIndex) => (
-                <img key={imgIndex} src={Object.values(image)[0]} alt={`Policy image ${imgIndex + 1}`} />
+              productsimg.map((image, imgIndex) => (
+                <img key={imgIndex} src={image} alt={`Policy image ${imgIndex + 1}`} />
               ))
             ) : (
               <p>No images available</p>
