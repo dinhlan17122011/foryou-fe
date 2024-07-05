@@ -1,5 +1,49 @@
 .Header-checkout{
     border-radius: 0px;
     margin-bottom: 0px;
-    background-color: rgb(97, 152, 92);
+    /* background-color: rgb(97, 152, 92); */
+    margin-top: 20px;
+    
+}
+.col-head{
+    color: black;
+    /* text-align: center; */
+}
+.img-he{
+    height: 58px;
+    width: 58px;
+    text-align: left;
+}
+
+.col-head samp{
+    text-align: center;
+    display: flex;
+    display: inline-block;
+    position: relative;
+    justify-content: space-between;
+}
+
+.col-head samp::after{
+    width: 0;
+    height: 4px;
+    background-color:black;
+    content: '';
+    position: absolute;
+    bottom: 24px;
+    left: 0;
+    display: flex;
+    transition: width 1.5s;
+}
+
+.col-head samp:hover::after{
+    width: 100%;
+}
+
+*{
+   color:  rgba(97,152,92)
+}
+
+samp{
+    font-size: 20px;
+    font-family: Lato, Helvetica Neue, Arial, Helvetica, sans-serif;
 }

@@ -4,7 +4,9 @@ import Head from '../../components/HeadCheckout/Head'
 const Checkout = () => {
   return (
     <div>
-      <Head />
+      <div style={{padding:'0 190px'}}>
+      <Head  />
+      </div>
       Checkout</div>
   )
 }

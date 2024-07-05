@@ -1,0 +1,40 @@
+/* Contacts.css */
+
+.contacts-container {
+    background-color: #4caf50;
+    padding: 20px;
+    color: white;
+    border-radius: 10px;
+    /* max-width: 600px;
+    margin: auto; */
+}
+
+.contact-info {
+    margin-bottom: 20px;
+}
+
+.contact-info h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.contact-info p {
+    margin: 5px 0;
+}
+
+.links-container {
+    display: flex;
+    gap: 20px;
+    
+    font-size: 2em;
+    justify-content: center;
+}
+
+.links-container a {
+    color: white;
+    transition: transform 0.2s;
+}
+
+.links-container a:hover {
+    transform: scale(1.2);
+}

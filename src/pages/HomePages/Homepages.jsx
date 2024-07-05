@@ -7,6 +7,7 @@ import './Home.css'
 import Heart from '../../components/Heart/Heart.jsx'
 import Listcake from '../../components/Listcake/Listcake.jsx'
 import Policies from '../../components/policies/policies.jsx'
+import Contacts from '../../components/Contacts/Contacts.jsx'
 const Homepages = () => {
   return (
     <div >
@@ -25,7 +26,7 @@ const Homepages = () => {
       </div>
 
       </div>
-      none
+      <Contacts/>
     </div>
   )
 }

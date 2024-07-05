@@ -8,17 +8,17 @@ const Head = () => {
           <Row>
       <Col span={5}>
         {/* <Imagelogo src={Anhlogo} alt='logo'/> */}
-        <img src='https://www.savor.vn/static/7a33cf9210ab26cbacce1da794c12bf7/f57bd/savor-cakes-logo-white.webp' />
+        <img className='img-he' src='https://www.savor.vn/static/d5cd465e6d0385ccbfcf8b6a1da81dd4/e5a38/savor-cakes-logo-green.webp' />
       </Col>
 
-      <Col className='col' span={3}>
-        <samp className='samp'>Giời thiệu</samp>
+      <Col className='col-head' span={6}>
+        <samp className='samp-head'>Menu</samp>
       </Col>
-      <Col className='col' span={3}>
-        <samp className='samp'>Danh mục</samp>
+      <Col className='col-head' span={6}>
+        <samp className='samp-head'>Tư vần</samp>
       </Col>
-      <Col className='col' span={3}>
-        <samp className='samp'>Chính sánh</samp>
+      <Col className='col-head' span={6}>
+        <samp className='samp'>Liên hệ</samp>
       </Col>
     </Row>
     </div>
