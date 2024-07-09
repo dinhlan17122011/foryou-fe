@@ -1,0 +1,12 @@
+Row{
+    /* display: flex; */
+    align-items: center;
+}
+.Header-checkout{
+    background-color: springgreen;
+    /* margin-top:20px; */
+}
+.item{
+    padding:0 190px;
+    
+}

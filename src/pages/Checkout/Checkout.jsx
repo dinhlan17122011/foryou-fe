@@ -1,13 +1,14 @@
 import React from 'react'
 import Head from '../../components/HeadCheckout/Head'
-
+import CheckoutPage from '../../components/Checkout/Checkout'
 const Checkout = () => {
   return (
     <div>
-      <div style={{padding:'0 190px'}}>
+      <div >
       <Head  />
       </div>
-      Checkout</div>
+      <CheckoutPage/>
+      </div>
   )
 }
 

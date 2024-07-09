@@ -1,0 +1,164 @@
+.checkout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+.checkout-item {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  width: 80%;
+  max-width: 800px;
+}
+
+.checkout-item__image img {
+  width: 50%;
+  border-radius: 8px;
+}
+
+.checkout-item__details {
+  margin-top: 20px;
+}
+
+.checkout-item__details h2 {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.checkout-item__details p {
+  margin: 5px 0;
+  color: #666;
+}
+
+.checkout-item__input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.checkout-item__price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.price-old {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.price-new {
+  font-size: 1.2em;
+  color: #e74c3c;
+}
+
+.checkout-item__quantity {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.checkout-item__quantity-input {
+  width: 50px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.checkout-item__delete {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.accessories {
+  margin-top: 40px;
+}
+
+.accessories h2 {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.accessories p {
+  color: #666;
+}
+
+.text {
+  font-size: 1.2em;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.product-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 10px;
+  width: 200px;
+  text-align: center;
+}
+
+.product-img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.product-info {
+  margin-top: 10px;
+}
+
+.product-title {
+  font-size: 1.2em;
+  margin: 0;
+}
+
+.product-description {
+  color: #666;
+  margin: 10px 0;
+}
+
+.product-price {
+  font-size: 1em;
+  color: #e74c3c;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.order-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.order-button:hover {
+  background-color: #218838;
+}
