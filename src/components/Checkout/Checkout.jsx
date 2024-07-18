@@ -35,7 +35,7 @@ const Checkout = () => {
   const handleAddToCart = async (item) => {
     try {
       const { _id, namecake, price, code, size } = item;
-      const response = await axios.put('http://localhost:3000/checkout/6698d2e0b05f8ecdede82342', {
+      const response = await axios.post('http://localhost:3000/checkout/6698d2e0b05f8ecdede82342', {
         cartId,
         productId: _id, // Sử dụng _id thay cho productId
         namecake,
