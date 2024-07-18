@@ -7,18 +7,16 @@ const Checkout = () => {
   const [selectedCake, setSelectedCake] = useState(null);
   const [selectedCakeaccessories, setSelectedCakeaccessories] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [error, setError] = useState(null); // Thêm state để lưu lỗi
   const cartId = '668ce44d395ff8c880be15de'; // Đặt ID của giỏ hàng
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch selected cake items
-        const responseItems = await axios.get(`http://localhost:3000/checkout/668ddd64321772b0253a084c`);
-        setSelectedCakeitems(responseItems.data.items[0]);
-
-        // Fetch selected cake customer info
-        const responseCake = await axios.get(`http://localhost:3000/checkout/668ddd64321772b0253a084c`);
-        setSelectedCake(responseCake.data.customer);
+        // Fetch selected cake items and customer info
+        const response = await axios.get(`http://localhost:3000/checkout/6698d2e0b05f8ecdede82342`);
+        setSelectedCakeitems(response.data.items[0]);
+        setSelectedCake(response.data.customer);
 
         // Fetch accessories
         const responseAccessories = await axios.get('http://localhost:3000/accessory');
@@ -26,6 +24,7 @@ const Checkout = () => {
         setSelectedCakeaccessories(responseAccessories.data);
         setCategories(uniqueCategories);
       } catch (error) {
+        setError(error.message); // Lưu thông báo lỗi vào state
         console.error('Error fetching data:', error);
       }
     };
@@ -35,10 +34,10 @@ const Checkout = () => {
 
   const handleAddToCart = async (item) => {
     try {
-      const { productId, namecake, price, code, size } = item;
-      const response = await axios.post('http://localhost:3000/checkout/668ddd64321772b0253a084c', {
+      const { _id, namecake, price, code, size } = item;
+      const response = await axios.post('http://localhost:3000/checkout/', {
         cartId,
-        productId,
+        productId: _id, // Sử dụng _id thay cho productId
         namecake,
         price,
         code,
@@ -47,7 +46,8 @@ const Checkout = () => {
       });
       console.log('Added to cart:', response.data.customer.Accessory);
     } catch (error) {
-      console.error('Error adding to cart:', error);
+      setError(error.message); // Lưu thông báo lỗi vào state
+      console.error('Error adding to cart:', error.response ? error.response.data : error.message);
     }
   };
 
@@ -56,10 +56,10 @@ const Checkout = () => {
       {selectedCakeitems ? (
         <div className="checkout-item">
           <div className="checkout-item__image">
-            <img src='https://www.savor.vn/static/58c9094fe7c4c2edabbb49d597c6be78/8452a/banh-kem-bo-xoai-viet-quat.webp' alt={selectedCakeitems.name} />
+            <img src='https://www.savor.vn/static/58c9094fe7c4c2edabbb49d597c6be78/8452a/banh-kem-bo-xoai-viet-quat.webp' alt={selectedCakeitems.namecake} />
           </div>
           <div className="checkout-item__details">
-            <h2>{selectedCakeitems.name}</h2>
+            <h2>{selectedCakeitems.namecake}</h2>
             <p>{selectedCakeitems.code}</p>
             <p>Kích thước: {selectedCakeitems.size}</p>
             <input
@@ -69,7 +69,7 @@ const Checkout = () => {
             />
           </div>
           <div className="checkout-item__price">
-            <span className="price-old">{selectedCakeitems.oldPrice}đ</span>
+            <span className="price-old">{selectedCakeitems.oldPrice ? `${selectedCakeitems.oldPrice}đ` : ''}</span>
             <span className="price-new">{selectedCakeitems.price}đ</span>
           </div>
           <div className="checkout-item__quantity">
@@ -115,6 +115,7 @@ const Checkout = () => {
       ) : (
         <p>Đang tải thông tin bánh...</p>
       )}
+      {error && <p className="error">Error: {error}</p>} {/* Hiển thị thông báo lỗi */}
     </div>
   );
 };
