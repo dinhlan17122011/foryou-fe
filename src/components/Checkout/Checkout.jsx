@@ -8,7 +8,7 @@ const Checkout = () => {
   const [selectedCakeaccessories, setSelectedCakeaccessories] = useState([]);
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null); // Thêm state để lưu lỗi
-  const cartId = '668ce44d395ff8c880be15de'; // Đặt ID của giỏ hàng
+  const cartId = '6698d2e0b05f8ecdede82342'; // Đặt ID của giỏ hàng
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,6 +44,7 @@ const Checkout = () => {
         size,
         quantity: 1 // Luôn luôn là 1
       });
+      console.log(_id);
       console.log('Added to cart:', response.data.customer.Accessory);
     } catch (error) {
       setError(error.message); // Lưu thông báo lỗi vào state
@@ -97,7 +98,7 @@ const Checkout = () => {
                       <div className="product-info">
                         <h3 className="product-title">{item.name}</h3>
                         <p className="product-description">{item.description}</p>
-                        <p className="product-price">Giá: <span className="">{item.price}</span> đ</p>
+                        <p className="product-price">Giá: <span className="">{item.number}</span> đ</p>
                         <button 
                           className="order-button"
                           onClick={() => handleAddToCart(item)}
