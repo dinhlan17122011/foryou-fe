@@ -6,15 +6,16 @@ const Checkout = () => {
   const [selectedCakeitems, setSelectedCakeitems] = useState(null);
   const [selectedCake, setSelectedCake] = useState(null);
   const [selectedCakeaccessories, setSelectedCakeaccessories] = useState([]);
+  const [selectedCakeaccessoriesdata, setSelectedCakeaccessoriesdata] = useState([]);
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null); // Thêm state để lưu lỗi
-  const cartId = '6698d2e0b05f8ecdede82342'; // Đặt ID của giỏ hàng
+  const cartId = '669c60e6114001b7fbfb33fa'; // Đặt ID của giỏ hàng
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         // Fetch selected cake items and customer info
-        const response = await axios.get(`http://localhost:3000/checkout/6698d2e0b05f8ecdede82342`);
+        const response = await axios.get(`http://localhost:3000/checkout/669c60e6114001b7fbfb33fa`);
         setSelectedCakeitems(response.data.items[0]);
         setSelectedCake(response.data.customer);
 
@@ -31,26 +32,31 @@ const Checkout = () => {
 
     fetchData();
   }, []);
-
   const handleAddToCart = async (item) => {
     try {
-      const { _id, namecake, price, code, size } = item;
-      const response = await axios.post('http://localhost:3000/checkout/6698d2e0b05f8ecdede82342', {
+      const { _id, name, price, size } = item; // Thêm 'price'
+      const quantity = 1; // Đảm bảo thêm quantity với giá trị mặc định là 1
+  
+      const response = await axios.post('http://localhost:3000/checkout/669c60e6114001b7fbfb33fa', {
         cartId,
-        productId: _id, // Sử dụng _id thay cho productId
-        namecake,
-        price,
-        code,
+        name,
+        price, // Thêm price
         size,
-        quantity: 1 // Luôn luôn là 1
+        quantity // Thêm quantity
       });
-      console.log(_id);
-      console.log('Added to cart:', response.data.customer.Accessory);
+  
+      // Cập nhật state với phụ kiện mới được thêm
+      setSelectedCakeaccessoriesdata([...selectedCakeaccessoriesdata, response.data.Accessory]);
+      console.log('Added to cart:', response.data.Accessory);
     } catch (error) {
-      setError(error.message); // Lưu thông báo lỗi vào state
+      setError(error.message);
       console.error('Error adding to cart:', error.response ? error.response.data : error.message);
     }
   };
+  
+  
+  
+  
 
   return (
     <div className="checkout">
