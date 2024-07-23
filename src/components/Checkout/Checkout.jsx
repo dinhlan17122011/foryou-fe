@@ -5,70 +5,100 @@ import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker from 'react-datepicker';
 
 const Checkout = () => {
-  const [selectedCakeitems, setSelectedCakeitems] = useState(null);
-  const [selectedCake, setSelectedCake] = useState(null);
+  const [selectedCakeitems, setSelectedCakeitems] = useState([]);
+  const [selectedCake, setSelectedCake] = useState([]);
   const [selectedCakeaccessories, setSelectedCakeaccessories] = useState([]);
   const [selectedCakeaccessoriesdata, setSelectedCakeaccessoriesdata] = useState([]);
   const [categories, setCategories] = useState([]);
   const [wards, setWards] = useState([]);
   const  [accessory,setaccessory]=useState([])
   const [selectedDistrict, setSelectedDistrict] = useState('Hà Đông');
-  const [error, setError] = useState(null); // Thêm state để lưu lỗi
-  const cartId = '669c60e6114001b7fbfb33fa'; // Đặt ID của giỏ hàng
+  const [error, setError] = useState([]); // Thêm state để lưu lỗi
+  const cartId = '669f7a506c436d8e9360316e'; // Đặt ID của giỏ hàng
   const [startDate, setStartDate] = useState(new Date());
   const  [date,setdate]=useState([])
+  const [total, setTotal] = useState(0);
+  const [totalAccessories, setTotalAccessories] = useState(0);
+  const [totalOrder, setTotalOrder] = useState(0);
+  const ship=30000;
+  useEffect(() => {
+    calculateTotal();
+  }, [selectedCakeitems, accessory]);
 
-    const handleDateChange = (date) => {
-        setStartDate(date);
-    };
+  const calculateTotal = () => {
+    // B1: Tính tổng tiền phụ kiện ✅
+    const totalAcc = accessory.reduce((acc, item) => {
+      if (item && item.number && item.quantity) {
+        return acc + item.number * item.quantity;
+      }
+      return acc;
+    }, 0);
+    setTotalAccessories(totalAcc);
+    console.log(totalAcc);
 
-  const districts = [
-    'Đống Đa',
-    'Thanh Xuân',
-    'Hà Đông'
+    // B2: Tính tổng tiền = tiền Bánh + tiền tổng phụ kiện ✅
+    const cakePrice = selectedCakeitems?.price || 0; 
+    const totalItems = (Number(cakePrice)) + (Number(totalAcc));
+    setTotal(totalItems);
+    console.log(totalItems);
+
+    // B3: Tính tổng đơn = tổng tiền + tiền ship ✅
+    const totalOrderAmount = totalItems + ship;
+    setTotalOrder(totalOrderAmount);
+    console.log(totalOrderAmount);
+  };
+
+
+  const handleDateChange = (date) => {
+    setStartDate(date);
+};
+
+const districts = [
+'Đống Đa',
+'Thanh Xuân',
+'Hà Đông'
 ];
-   const datevale=[
-    "10h-11h",
-    "11h-12h",
-    "12h-13h",
-    "13h-14h",
-    "14h-15h",
-    "15h-16h",
-    "16h-17h",
-    "17h-18h",
-    "18h-19h",
-    "19h-20h",
-    "20h-21h",
-   ]
+const datevale=[
+"10h-11h",
+"11h-12h",
+"12h-13h",
+"13h-14h",
+"14h-15h",
+"15h-16h",
+"16h-17h",
+"17h-18h",
+"18h-19h",
+"19h-20h",
+"20h-21h",
+]
 
 const wardsByDistrict = {
-    'Đống Đa': ["Văn Miếu", "Văn Chương", "Trung Tự", "Trung Phụng", "Trung Liệt", "Thổ Quan", "Thịnh Quang", "Quốc Tử Giám"," Quang Trung", "Phương Mai", "Phương Liên", "Ô Chợ Dừa", "Ngã Tư Sở", "Nam Đồng"," Láng Thượng"," Láng Hạ", "Kim Liên", "Khương Thượng", "Khâm Thiên", "Hàng Bột", "Cát Linh"],
-    'Thanh Xuân': ["Hạ Đình"," Khương Đình", "Khương Mai", "Khương Trung", "Kim Giang", "Nhân Chính", "Phương Liệt", "Thanh Xuân Bắc", "Thanh Xuân Nam", "Thanh Xuân Trung", "Thượng Đình."],
-    'Hà Đông': ["Biên Giang", "Đồng Mai", "Yên Nghĩa", "Dương Nội"," Hà Cầu", "La Khê", "Mộ Lao"," Nguyễn Trãi", "Phú La", "Phú Lãm", "Phú Lương", "Kiến Hưng", "Phúc La", "Quang Trung", "Vạn Phúc", "Văn Quán", "Yết Kiêu"]
+'Đống Đa': ["Văn Miếu", "Văn Chương", "Trung Tự", "Trung Phụng", "Trung Liệt", "Thổ Quan", "Thịnh Quang", "Quốc Tử Giám"," Quang Trung", "Phương Mai", "Phương Liên", "Ô Chợ Dừa", "Ngã Tư Sở", "Nam Đồng"," Láng Thượng"," Láng Hạ", "Kim Liên", "Khương Thượng", "Khâm Thiên", "Hàng Bột", "Cát Linh"],
+'Thanh Xuân': ["Hạ Đình"," Khương Đình", "Khương Mai", "Khương Trung", "Kim Giang", "Nhân Chính", "Phương Liệt", "Thanh Xuân Bắc", "Thanh Xuân Nam", "Thanh Xuân Trung", "Thượng Đình."],
+'Hà Đông': ["Biên Giang", "Đồng Mai", "Yên Nghĩa", "Dương Nội"," Hà Cầu", "La Khê", "Mộ Lao"," Nguyễn Trãi", "Phú La", "Phú Lãm", "Phú Lương", "Kiến Hưng", "Phúc La", "Quang Trung", "Vạn Phúc", "Văn Quán", "Yết Kiêu"]
 };
 
 const handleDistrictChange = (event) => {
-    const district = event.target.value;
-    setSelectedDistrict(district);
-    setWards(wardsByDistrict[district]);
+const district = event.target.value;
+setSelectedDistrict(district);
+setWards(wardsByDistrict[district]);
 };
 const handleChange = (event) => {
-  setSelectedDistrict(event.target.value);
+setSelectedDistrict(event.target.value);
 };
 const handledatenow=(event) =>{
-  const datenow = event.target.value;
-    setdate(datenow);
+const datenow = event.target.value;
+setdate(datenow);
 }
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         // Fetch selected cake items and customer info
-        const response = await axios.get(`http://localhost:3000/checkout/669c60e6114001b7fbfb33fa`);
+        const response = await axios.get(`http://localhost:3000/checkout/669f7a506c436d8e9360316e`);
         setSelectedCakeitems(response.data.items[0]);
         setSelectedCake(response.data.customer);
-        setaccessory(response.data.customer.Accessory)
-        console.log(response.data.Accessory);
+        setaccessory(response.data.Accessory)
+        console.log(response.data.items[0]);
         // Fetch accessories
         const responseAccessories = await axios.get('http://localhost:3000/accessory');
         const uniqueCategories = [...new Set(responseAccessories.data.map(item => item.category))];
@@ -84,11 +114,12 @@ const handledatenow=(event) =>{
   }, []);
   const handleAddToCart = async (item) => {
     try {
-      const { _id, name, number } = item; // Thêm 'price'
+      const { _id, name, number,img } = item; // Thêm 'price'
       const quantity = 1; // Đảm bảo thêm quantity với giá trị mặc định là 1
   
-      const response = await axios.post('http://localhost:3000/checkout/669c60e6114001b7fbfb33fa', {
+      const response = await axios.post('http://localhost:3000/checkout/669f7a506c436d8e9360316e', {
         cartId,
+        img,
         name,
         number, // Thêm price
         quantity // Thêm quantity
@@ -102,7 +133,7 @@ const handledatenow=(event) =>{
       console.error('Error adding to cart:', error.response ? error.response.data : error.message);
     }
   };
-  
+  console.log(accessory);
   
   
   
@@ -253,6 +284,7 @@ const handledatenow=(event) =>{
       </div>
       {/* Thông tin  */}
       <div className='div-right'>
+      <div className='scrollable-container'>
         <div>
           <h1>Thông tin đơn hàng</h1>
           {selectedCakeitems ? (
@@ -276,32 +308,27 @@ const handledatenow=(event) =>{
           ) : (
             <p>Đang tải thông tin bánh...</p>)}
         </div>
+        <h3>Phần phụ kiện</h3>
         <div className="product-list">
-            {accessory.length > 0 ? (
-                accessory.map(product => (
-                    <div key={product._id} className="product-item">
+            {Array.isArray(accessory) && accessory.length > 0 ? (
+                accessory.map((product,index) => (
+                    <div key={index} className="product-item">
+                      <img />
                         <h3>{product.name}</h3>
-                        <p>Price: {product.number} VND</p>
-                        <p>Quantity: {product.quantity}</p>
+                        <p>Giá: {product.number} VND</p>
+                        <p>SL: {product.quantity}</p>
                     </div>
                 ))
             ) : (
                 <p>No products available.</p>
             )}
         </div>
-        <div className="product-list">
-            {Array.isArray(accessory) && accessory.length >= 0 ? (
-                accessory.map(product => (
-                    <div key={product._id} className="product-item">
-                        <h3>{product.name}</h3>
-                        <p>Price: {product.number} VND</p>
-                        <p>Quantity: {product.quantity}</p>
-                    </div>
-                ))
-            ) : (
-                <p>No products available.</p>
-            )}
-        </div>
+      </div>
+          <div>
+            <h2>Tổng tiền:{totalAccessories}VNĐ</h2>
+            <h2>Phí ship:{ship} VNĐ</h2>
+            <h2>Tổng đơn:{totalOrder} VNĐ</h2>
+          </div>
       </div>
     </div>
     </div>
