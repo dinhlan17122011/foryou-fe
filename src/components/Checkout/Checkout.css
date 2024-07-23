@@ -269,7 +269,39 @@ select {
   width: 33.33333%;
 }
 
+.checkout-item-conclude {
+  /* padding: 20px; */
+  /* border: 1px solid #ccc; */
+  border-radius: 5px;
+  /* margin: 20px 0; */
+}
+
 .div-container {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
+.imghcheckout-container {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.checkout-item-conclude-details {
+  /* padding: 0 20px; */
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.namecake-checkout {
+  font-size: 20px;
+  margin: 0;
+}
+
+.size-checkout,
+.soluong-checkout,
+.price-new {
+  font-size: 1em;
+  margin: 5px 0;
 }

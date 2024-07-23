@@ -11,6 +11,7 @@ const Checkout = () => {
   const [selectedCakeaccessoriesdata, setSelectedCakeaccessoriesdata] = useState([]);
   const [categories, setCategories] = useState([]);
   const [wards, setWards] = useState([]);
+  const  [accessory,setaccessory]=useState([])
   const [selectedDistrict, setSelectedDistrict] = useState('Hà Đông');
   const [error, setError] = useState(null); // Thêm state để lưu lỗi
   const cartId = '669c60e6114001b7fbfb33fa'; // Đặt ID của giỏ hàng
@@ -66,7 +67,8 @@ const handledatenow=(event) =>{
         const response = await axios.get(`http://localhost:3000/checkout/669c60e6114001b7fbfb33fa`);
         setSelectedCakeitems(response.data.items[0]);
         setSelectedCake(response.data.customer);
-
+        setaccessory(response.data.customer.Accessory)
+        console.log(response.data.Accessory);
         // Fetch accessories
         const responseAccessories = await axios.get('http://localhost:3000/accessory');
         const uniqueCategories = [...new Set(responseAccessories.data.map(item => item.category))];
@@ -257,12 +259,12 @@ const handledatenow=(event) =>{
             <div className="checkout-item-conclude">
               <div className='div-container '>
                 <div class="left">
-                <img src='https://www.savor.vn/static/e3579028d84021e8443532247c7d3bfd/491dc/banh-kem-bo-xoai-viet-quat.webp' className='imghcheckout' alt={selectedCakeitems.namecake} />
+                <img src='https://www.savor.vn/static/e3579028d84021e8443532247c7d3bfd/491dc/banh-kem-bo-xoai-viet-quat.webp' className='imghcheckout-container' alt={selectedCakeitems.namecake} />
                 </div>
                 <div class="middle">
                 <div className="checkout-item-conclude-details">
                 <h2 className='namecake-checkout'>{selectedCakeitems.namecake}</h2>
-                <p className='size-checkout'>Kích thước: {selectedCakeitems.size}</p>
+                <p className='size-checkout'>Kích thước:{selectedCakeitems.size}</p>
                 <p className='soluong-checkout'>SL :1 </p>
                 </div>
                 </div>
@@ -274,9 +276,33 @@ const handledatenow=(event) =>{
           ) : (
             <p>Đang tải thông tin bánh...</p>)}
         </div>
-
+        <div className="product-list">
+            {accessory.length > 0 ? (
+                accessory.map(product => (
+                    <div key={product._id} className="product-item">
+                        <h3>{product.name}</h3>
+                        <p>Price: {product.number} VND</p>
+                        <p>Quantity: {product.quantity}</p>
+                    </div>
+                ))
+            ) : (
+                <p>No products available.</p>
+            )}
+        </div>
+        <div className="product-list">
+            {Array.isArray(accessory) && accessory.length >= 0 ? (
+                accessory.map(product => (
+                    <div key={product._id} className="product-item">
+                        <h3>{product.name}</h3>
+                        <p>Price: {product.number} VND</p>
+                        <p>Quantity: {product.quantity}</p>
+                    </div>
+                ))
+            ) : (
+                <p>No products available.</p>
+            )}
+        </div>
       </div>
-
     </div>
     </div>
   );
