@@ -57,7 +57,6 @@
 
 .price-new {
   font-size: 1.2em;
-  color: #e74c3c;
 }
 
 .checkout-item__quantity {
@@ -161,4 +160,116 @@
 
 .order-button:hover {
   background-color: #218838;
+}
+
+label {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+select {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.dropdown-container {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+.dropdown-label {
+  font-weight: bold;
+  margin-right: 10px;
+  font-size: 20px; /* Tăng kích thước font của label */
+}
+
+.dropdown-select {
+  padding: 15px; /* Tăng padding để phần lựa chọn lớn hơn */
+  border: 2px solid #4CAF50; /* Màu viền xanh lá */
+  border-radius: 5px;
+  font-size: 18px; /* Tăng kích thước font của các lựa chọn */
+  appearance: none; /* Ẩn mũi tên mặc định của dropdown trên một số trình duyệt */
+  background-color: white;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%234CAF50" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>'); /* Mũi tên tùy chỉnh */
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+}
+
+.dropdown-select:focus {
+  border-color: #3e8e41; /* Màu viền khi focus */
+  outline: none; /* Loại bỏ viền mặc định khi focus */
+}
+
+.dropdown-option {
+  padding: 15px; /* Tăng padding của các lựa chọn */
+  font-size: 18px; /* Tăng kích thước font của các lựa chọn */
+}
+
+.inputclass{
+  margin-top:20px ;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Khoảng cách giữa các ô tích */
+}
+
+.custom-datepicker {
+  padding: 10px;
+  border: 2px solid #4CAF50; /* Màu viền xanh lá */
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.resizable-textarea {
+  width: 20%;
+  height: 100px;
+  resize: both; /* Cho phép phóng to/phóng nhỏ cả chiều ngang và chiều dọc */
+  overflow: auto; /* Hiển thị thanh cuộn khi nội dung vượt quá kích thước */
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Hai cột với độ rộng bằng nhau */
+  gap: 20px; /* Khoảng cách giữa hai div */
+}
+.div-left, .div-right {
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.namecake-checkout{
+
+}
+
+.imghcheckout{
+  width: 100%;
+  height: 100%;
+}
+
+.left, .middle, .right {
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.left {
+  width: 33.33333%;
+}
+
+.middle {
+  flex-grow: 1;
+  width: 33.33333%;
+}
+
+.right {
+  width: 33.33333%;
+}
+
+.div-container {
+  display: flex;
+
 }
