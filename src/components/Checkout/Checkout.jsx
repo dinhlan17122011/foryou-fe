@@ -33,7 +33,7 @@ const Checkout = () => {
     notes: '',
     date: new Date(),
     time: '',
-  });
+  });// Doạn này ko lấy đc dữ liệu
   useEffect(() => {
     calculateTotal();
   }, [selectedCakeitems, accessory]);
@@ -79,14 +79,26 @@ const handleDateChangee = (date) => {
     deliveryDate: date,
   });
 };
-
+console.log(orderData);
 const handleSubmit = async (e) => {
   e.preventDefault();
   try {
-    const response = await axios.put('http://localhost:5000/66a0509017e235da3a33d35b', orderData);
+    const response = await axios.put('http://localhost:3000/checkout/66a0509017e235da3a33d35b', orderData);
     console.log('Order saved successfully:', response.data.customer);
   } catch (error) {
     console.error('Error saving order:', error);
+    if (error.response) {
+      // Server responded with a status code different from 2xx
+      console.error('Data:', error.response.data);//err
+      console.error('Status:', error.response.status);//400
+      console.error('Headers:', error.response.headers);//AxiosHeaders
+    } else if (error.request) {
+      // Request was made but no response was received
+      console.error('Request:', error.request);
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.error('Message:', error.message);
+    }
   }
 };
 
@@ -118,8 +130,9 @@ const wardsByDistrict = {
 const handleDistrictChange = (event) => {
 const district = event.target.value;
 setSelectedDistrict(district);
-setWards(wardsByDistrict[district]);
+setWards(wardsByDistrict);
 };
+console.log(wardsByDistrict[districts]);//undied
 const handleChange = (event) => {
 setSelectedDistrict(event.target.value);
 };
@@ -286,7 +299,7 @@ setdate(datenow);
             <label htmlFor="wards" className="dropdown-label">Chọn Phường:</label>
             <select id="wards" className="dropdown-select" value2={orderData.ward} onChange={handleChangee}>
                 {wards.map((ward, index) => (
-                    <option key={index} value1={ward}>
+                    <option key={index} value={ward}>
                         {ward}
                     </option>
                 ))}
