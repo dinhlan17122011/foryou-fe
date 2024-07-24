@@ -14,13 +14,26 @@ const Checkout = () => {
   const  [accessory,setaccessory]=useState([])
   const [selectedDistrict, setSelectedDistrict] = useState('Hà Đông');
   const [error, setError] = useState([]); // Thêm state để lưu lỗi
-  const cartId = '669f7a506c436d8e9360316e'; // Đặt ID của giỏ hàng
+  const cartId = '66a0509017e235da3a33d35b'; // Đặt ID của giỏ hàng
   const [startDate, setStartDate] = useState(new Date());
   const  [date,setdate]=useState([])
   const [total, setTotal] = useState(0);
   const [totalAccessories, setTotalAccessories] = useState(0);
   const [totalOrder, setTotalOrder] = useState(0);
-  const ship=30000;
+  const ship =30000;
+  const [orderData, setOrderData] = useState({
+    name: '',
+    phone: '',
+    recipientName: '',
+    recipientPhone: '',
+    address: '',
+    district:'',
+    ward: '',
+    bill: false,
+    notes: '',
+    date: new Date(),
+    time: '',
+  });
   useEffect(() => {
     calculateTotal();
   }, [selectedCakeitems, accessory]);
@@ -41,7 +54,7 @@ const Checkout = () => {
     const totalItems = (Number(cakePrice)) + (Number(totalAcc));
     setTotal(totalItems);
     console.log(totalItems);
-
+    
     // B3: Tính tổng đơn = tổng tiền + tiền ship ✅
     const totalOrderAmount = totalItems + ship;
     setTotalOrder(totalOrderAmount);
@@ -51,6 +64,30 @@ const Checkout = () => {
 
   const handleDateChange = (date) => {
     setStartDate(date);
+};
+const handleChangee = (e) => {
+  const { name, value, type, checked } = e.target;
+  setOrderData({
+    ...selectedCakeitems,
+    [name]: type === 'checkbox' ? checked : value,
+  });
+};
+
+const handleDateChangee = (date) => {
+  setOrderData({
+    ...selectedCakeitems,
+    deliveryDate: date,
+  });
+};
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const response = await axios.put('http://localhost:5000/66a0509017e235da3a33d35b', orderData);
+    console.log('Order saved successfully:', response.data.customer);
+  } catch (error) {
+    console.error('Error saving order:', error);
+  }
 };
 
 const districts = [
@@ -94,7 +131,7 @@ setdate(datenow);
     const fetchData = async () => {
       try {
         // Fetch selected cake items and customer info
-        const response = await axios.get(`http://localhost:3000/checkout/669f7a506c436d8e9360316e`);
+        const response = await axios.get(`http://localhost:3000/checkout/66a0509017e235da3a33d35b`);
         setSelectedCakeitems(response.data.items[0]);
         setSelectedCake(response.data.customer);
         setaccessory(response.data.Accessory)
@@ -117,7 +154,7 @@ setdate(datenow);
       const { _id, name, number,img } = item; // Thêm 'price'
       const quantity = 1; // Đảm bảo thêm quantity với giá trị mặc định là 1
   
-      const response = await axios.post('http://localhost:3000/checkout/669f7a506c436d8e9360316e', {
+      const response = await axios.post('http://localhost:3000/checkout/66a0509017e235da3a33d35b', {
         cartId,
         img,
         name,
@@ -214,34 +251,42 @@ setdate(datenow);
         <h2>Thông tin người đặt</h2>
         <input
         placeholder="Họ và tên"
+        value={orderData.name}
+        onChange={handleChangee}
         />
         <div></div>
         <input
         placeholder="Số điện thoại"
+        value={orderData.phone}
+        onChange={handleChangee}
         />
 
         <h2>Thông tin người nhận</h2>
         <input
         placeholder="Họ và tên"
+        value={orderData.recipientName}
+              onChange={handleChangee}
         />
         <div></div>
         <input
         placeholder="Số điện thoại"
+        value={orderData.recipientPhone}
+              onChange={handleChangee}
         />
         <h2>Địa chỉ nhận hàng</h2>  
         <label htmlFor="districts" className="dropdown-label">Chọn Quận:</label>
-            <select id="districts" className="dropdown-select" value={selectedDistrict} onChange={handleDistrictChange}>
+            <select id="districts" className="dropdown-select" value1={selectedDistrict} onChange1={handleDistrictChange} value2={orderData.district} onChange={handleChangee}>
                 {districts.map((district, index) => (
-                    <option key={index} value={district}>
+                    <option key={index} value1={district}  >
                         {district}
                     </option>
                 ))}
             </select>
             
             <label htmlFor="wards" className="dropdown-label">Chọn Phường:</label>
-            <select id="wards" className="dropdown-select">
+            <select id="wards" className="dropdown-select" value2={orderData.ward} onChange={handleChangee}>
                 {wards.map((ward, index) => (
-                    <option key={index} value={ward}>
+                    <option key={index} value1={ward}>
                         {ward}
                     </option>
                 ))}
@@ -251,35 +296,47 @@ setdate(datenow);
           <input
           className='inputclass'
           placeholder="Số nhà , dường cụ thể"
+          value={orderData.address} onChange={handleChangee}
           />
         <h2>Hóa đơn</h2>
         <div className='checkbox-row'>
-        <input type="checkbox" id="myCheckbox"/>
+        <input type="checkbox" id="myCheckbox"
+        checked={orderData.bill}
+        onChange={handleChangee}/>
         <p>Có lấy hóa đơn</p>
         </div>
         <h2>Ghi chú khác cho đơn hàng</h2>
         <p>KHÔNG ghi chữ viết bánh tại đây.</p>
         <p>Nếu muốn ghi chữ, vui lòng quay lại trang GIỎ HÀNG liền trước ạ</p>
-        <textarea class="resizable-textarea" placeholder="Ghi chú khác chừ viết"></textarea>
+        <textarea class="resizable-textarea" placeholder="Ghi chú khác chừ viết"
+        value={orderData.notes}
+        onChange={handleChangee}></textarea>
         <h2>Thời gian nhận hàng</h2>
         <div>
         <label htmlFor="date-picker" style={{ fontWeight: 'bold', marginRight: '10px' }}>Chọn ngày:</label>
             <DatePicker
                 id="date-picker"
-                selected={startDate}
-                onChange={handleDateChange}
+                selected1={startDate}
+                onChange1={handleDateChange}
+                selected={orderData.deliveryDate}
+              onChange={handleDateChangee}
                 dateFormat="dd/MM/yyyy"
                 className="custom-datepicker"
             />
             <div />
           <label htmlFor="districts" className="dropdown-label">Thời gian:</label>
-            <select id="districts" className="dropdown-select" value={date} onChange={handledatenow}>
+            <select id="districts" className="dropdown-select" value1={date} onChange2={handledatenow}
+            value={orderData.deliveryTime}
+            onChange={handleChangee}>
                 {datevale.map((date, index) => (
                     <option key={index} value={date}>
                         {date}
                     </option>
                 ))}
             </select>
+            <button className="order-button" type="submit" onClick={handleSubmit}>Đặt hàng</button>
+
+            {/* <button className="order-button" type="submit">Đặt hàng</button> */}
         </div>
       </div>
       {/* Thông tin  */}
@@ -325,10 +382,24 @@ setdate(datenow);
         </div>
       </div>
           <div>
-            <h2>Tổng tiền:{totalAccessories}VNĐ</h2>
+            <h2>Tổng tiền phụ kiện:{totalAccessories}VNĐ</h2>
             <h2>Phí ship:{ship} VNĐ</h2>
             <h2>Tổng đơn:{totalOrder} VNĐ</h2>
           </div>
+          <div>
+          <h1>CHÚ Ý</h1>
+          <p>Chính sách ship với sản phẩm Bánh sinh nhật:</p>
+          <h3>1/ Ship 12 quận nội thành:</h3>
+          <p>+ Đơn dưới 300k: Thu ship đồng giá 30k</p>
+          <p>+ Đơn từ 300k: Miễn ship, tối đa 60k</p>
+          <h3>2/ Nhận tại cửa hàng:</h3>
+          <p>+ Miễn ship toàn bộ với đơn nhận tại cơ sở ở Dương Nội (Hà Đông) </p>
+          <p>Các cơ sở khác:</p>
+          <p>- Đơn từ 300k hoặc đặt trước 24h: Miễn ship, tối đa 60k</p>
+          <p>-Còn lại: Thu ship đồng giá 30k</p>
+          <p>Với các đơn thuộc nhóm miễn ship, nếu phí ship thực tế phát sinh cao hơn mức hỗ trợ tối đa đã nêu là 60k, Savor xin phép thu phần chênh lệch ạ (ví dụ 70k - 60k = 10k).</p>
+        </div>
+        {/* <button className="order-button" type="submit">Đặt hàng</button> */}
       </div>
     </div>
     </div>
