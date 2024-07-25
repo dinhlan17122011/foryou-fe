@@ -1,4 +1,5 @@
 import Checkout from "../pages/Checkout/Checkout";
+import Chitiet from "../pages/Chitietsanpham/Chitiet";
 import Homepages from "../pages/HomePages/Homepages";
 
 export const routes =[
@@ -9,5 +10,9 @@ export const routes =[
     {
         path:'/checkout',
         page:Checkout
+    },
+    {
+        path:'/product/:id',
+        page:Chitiet
     }
 ]

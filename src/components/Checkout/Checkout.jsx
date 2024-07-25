@@ -21,19 +21,63 @@ const Checkout = () => {
   const [totalAccessories, setTotalAccessories] = useState(0);
   const [totalOrder, setTotalOrder] = useState(0);
   const ship =30000;
-  const [orderData, setOrderData] = useState({
-    name: '',
-    phone: '',
-    recipientName: '',
-    recipientPhone: '',
-    address: '',
-    district:'',
-    ward: '',
-    bill: false,
-    notes: '',
-    date: new Date(),
-    time: '',
-  });// Doạn này ko lấy đc dữ liệu
+//   const [orderData, setOrderData] = useState({
+//     // name: '',
+//     // phone: '',
+//     // recipientName: '',
+//     // recipientPhone: '',
+//     // address: '',
+//     // district:'',
+//     // ward: '',
+//     // bill: false,
+//     // notes: '',
+//     // date: new Date(),
+//     // time: '',
+//     items: [
+//         {
+//             'namecake': '',
+//       'price': '',
+//       'quantity': '',
+//       'code': '',
+//       'size': '',
+//       'notecake': '',
+
+//         }
+//     ], // hoặc giá trị mặc định phù hợp
+//     customer: {
+//     "orderer": [
+//         {
+//             name: '',
+//           phone: '',
+
+//         }
+//     ],
+//     "ordererSchemarecipient":[
+//         {
+
+//             recipientName: '',
+//         recipientPhone: '',
+//         }
+//     ],
+//     "deliveryaddress": [
+//         {
+
+//             address: '',
+//           district:'',
+//           ward: '',
+//         }
+//     ],
+//     "deliverytime": [
+//         {
+//             date: new Date(),
+//           time: '',
+
+//         }
+//     ]
+//     }, // hoặc giá trị mặc định phù hợp
+//     status: '', // hoặc giá trị mặc định phù hợp
+//     deliveryDate: null // hoặc giá trị mặc định phù hợp
+//   });// Doạn này ko lấy đc dữ liệu
   useEffect(() => {
     calculateTotal();
   }, [selectedCakeitems, accessory]);
@@ -62,80 +106,82 @@ const Checkout = () => {
   };
 
 
-  const handleDateChange = (date) => {
-    setStartDate(date);
-};
-const handleChangee = (e) => {
-  const { name, value, type, checked } = e.target;
-  setOrderData({
-    ...selectedCakeitems,
-    [name]: type === 'checkbox' ? checked : value,
-  });
-};
+//   const handleChangee = (e) => {
+//       const { name, value, type, checked } = e.target;
+//       setOrderData({
+//     ...selectedCakeitems,
+//     [name]: type === 'checkbox' ? checked : value,
+// });
+// };
 
-const handleDateChangee = (date) => {
-  setOrderData({
-    ...selectedCakeitems,
-    deliveryDate: date,
-  });
-};
-console.log(orderData);
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const response = await axios.put('http://localhost:3000/checkout/66a0509017e235da3a33d35b', orderData);
-    console.log('Order saved successfully:', response.data.customer);
-  } catch (error) {
-    console.error('Error saving order:', error);
-    if (error.response) {
-      // Server responded with a status code different from 2xx
-      console.error('Data:', error.response.data);//err
-      console.error('Status:', error.response.status);//400
-      console.error('Headers:', error.response.headers);//AxiosHeaders
-    } else if (error.request) {
-      // Request was made but no response was received
-      console.error('Request:', error.request);
-    } else {
-      // Something happened in setting up the request that triggered an Error
-      console.error('Message:', error.message);
-    }
-  }
-};
+// const handleDateChangee = (date) => {
+//     setOrderData(prevState => ({
+//         ...prevState,
+//         deliveryDate: date,
+//     }));
+// };
+// console.log(orderData);
+// const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     console.log(orderData); // Kiểm tra dữ liệu trước khi gửi lên BE
+
+//     try {
+//         const response = await axios.put('http://localhost:3000/checkout/66a0509017e235da3a33d35b', orderData);
+//         console.log('Order saved successfully:', response.data.customer);
+//     } catch (error) {
+//         console.error('Error saving order:', error);
+//         if (error.response) {
+//             console.error('Data:', error.response.data);
+//             console.error('Status:', error.response.status);
+//             console.error('Headers:', error.response.headers);
+//         } else if (error.request) {
+//             console.error('Request:', error.request);
+//         } else {
+//             console.error('Message:', error.message);
+//         }
+//     }
+// };
+
 
 const districts = [
-'Đống Đa',
-'Thanh Xuân',
-'Hà Đông'
+    'Đống Đa',
+    'Thanh Xuân',
+    'Hà Đông'
 ];
 const datevale=[
-"10h-11h",
-"11h-12h",
-"12h-13h",
-"13h-14h",
-"14h-15h",
-"15h-16h",
-"16h-17h",
-"17h-18h",
-"18h-19h",
-"19h-20h",
+    "10h-11h",
+    "11h-12h",
+    "12h-13h",
+    "13h-14h",
+    "14h-15h",
+    "15h-16h",
+    "16h-17h",
+    "17h-18h",
+    "18h-19h",
+    "19h-20h",
 "20h-21h",
 ]
 
 const wardsByDistrict = {
-'Đống Đa': ["Văn Miếu", "Văn Chương", "Trung Tự", "Trung Phụng", "Trung Liệt", "Thổ Quan", "Thịnh Quang", "Quốc Tử Giám"," Quang Trung", "Phương Mai", "Phương Liên", "Ô Chợ Dừa", "Ngã Tư Sở", "Nam Đồng"," Láng Thượng"," Láng Hạ", "Kim Liên", "Khương Thượng", "Khâm Thiên", "Hàng Bột", "Cát Linh"],
+    'Đống Đa': ["Văn Miếu", "Văn Chương", "Trung Tự", "Trung Phụng", "Trung Liệt", "Thổ Quan", "Thịnh Quang", "Quốc Tử Giám"," Quang Trung", "Phương Mai", "Phương Liên", "Ô Chợ Dừa", "Ngã Tư Sở", "Nam Đồng"," Láng Thượng"," Láng Hạ", "Kim Liên", "Khương Thượng", "Khâm Thiên", "Hàng Bột", "Cát Linh"],
 'Thanh Xuân': ["Hạ Đình"," Khương Đình", "Khương Mai", "Khương Trung", "Kim Giang", "Nhân Chính", "Phương Liệt", "Thanh Xuân Bắc", "Thanh Xuân Nam", "Thanh Xuân Trung", "Thượng Đình."],
 'Hà Đông': ["Biên Giang", "Đồng Mai", "Yên Nghĩa", "Dương Nội"," Hà Cầu", "La Khê", "Mộ Lao"," Nguyễn Trãi", "Phú La", "Phú Lãm", "Phú Lương", "Kiến Hưng", "Phúc La", "Quang Trung", "Vạn Phúc", "Văn Quán", "Yết Kiêu"]
 };
 
+
 const handleDistrictChange = (event) => {
-const district = event.target.value;
-setSelectedDistrict(district);
-setWards(wardsByDistrict);
+    const district = event.target.value;
+    setSelectedDistrict(district);
+    setWards(wardsByDistrict);
 };
-console.log(wardsByDistrict[districts]);//undied
+console.log(wardsByDistrict);//undied
+console.log();
 const handleChange = (event) => {
 setSelectedDistrict(event.target.value);
 };
+const handleDateChange = (date) => {
+    setStartDate(date);
+  };
 const handledatenow=(event) =>{
 const datenow = event.target.value;
 setdate(datenow);
@@ -144,7 +190,7 @@ setdate(datenow);
     const fetchData = async () => {
       try {
         // Fetch selected cake items and customer info
-        const response = await axios.get(`http://localhost:3000/checkout/66a0509017e235da3a33d35b`);
+        const response = await axios.get(`http://localhost:3000/checkout/66a1aa0b1e743edda7f6eb32`);
         setSelectedCakeitems(response.data.items[0]);
         setSelectedCake(response.data.customer);
         setaccessory(response.data.Accessory)
@@ -167,7 +213,7 @@ setdate(datenow);
       const { _id, name, number,img } = item; // Thêm 'price'
       const quantity = 1; // Đảm bảo thêm quantity với giá trị mặc định là 1
   
-      const response = await axios.post('http://localhost:3000/checkout/66a0509017e235da3a33d35b', {
+      const response = await axios.post('http://localhost:3000/checkout/66a1aa0b1e743edda7f6eb32', {
         cartId,
         img,
         name,
@@ -264,40 +310,36 @@ setdate(datenow);
         <h2>Thông tin người đặt</h2>
         <input
         placeholder="Họ và tên"
-        value={orderData.name}
-        onChange={handleChangee}
+        
         />
         <div></div>
         <input
         placeholder="Số điện thoại"
-        value={orderData.phone}
-        onChange={handleChangee}
+        
         />
 
         <h2>Thông tin người nhận</h2>
         <input
         placeholder="Họ và tên"
-        value={orderData.recipientName}
-              onChange={handleChangee}
+        
         />
         <div></div>
         <input
         placeholder="Số điện thoại"
-        value={orderData.recipientPhone}
-              onChange={handleChangee}
+        
         />
         <h2>Địa chỉ nhận hàng</h2>  
         <label htmlFor="districts" className="dropdown-label">Chọn Quận:</label>
-            <select id="districts" className="dropdown-select" value1={selectedDistrict} onChange1={handleDistrictChange} value2={orderData.district} onChange={handleChangee}>
+            <select id="districts" className="dropdown-select" value={selectedDistrict} onChange={handleDistrictChange} >
                 {districts.map((district, index) => (
-                    <option key={index} value1={district}  >
+                    <option key={index} value={district} >
                         {district}
                     </option>
                 ))}
             </select>
             
             <label htmlFor="wards" className="dropdown-label">Chọn Phường:</label>
-            <select id="wards" className="dropdown-select" value2={orderData.ward} onChange={handleChangee}>
+            <select id="wards" className="dropdown-select"  value={setWards} onChange={handleDistrictChange} >
                 {wards.map((ward, index) => (
                     <option key={index} value={ward}>
                         {ward}
@@ -309,45 +351,39 @@ setdate(datenow);
           <input
           className='inputclass'
           placeholder="Số nhà , dường cụ thể"
-          value={orderData.address} onChange={handleChangee}
+          
           />
         <h2>Hóa đơn</h2>
         <div className='checkbox-row'>
-        <input type="checkbox" id="myCheckbox"
-        checked={orderData.bill}
-        onChange={handleChangee}/>
+        <input type="checkbox" id="myCheckbox"/>
         <p>Có lấy hóa đơn</p>
         </div>
         <h2>Ghi chú khác cho đơn hàng</h2>
         <p>KHÔNG ghi chữ viết bánh tại đây.</p>
         <p>Nếu muốn ghi chữ, vui lòng quay lại trang GIỎ HÀNG liền trước ạ</p>
-        <textarea class="resizable-textarea" placeholder="Ghi chú khác chừ viết"
-        value={orderData.notes}
-        onChange={handleChangee}></textarea>
+        <textarea class="resizable-textarea" placeholder="Ghi chú khác chừ viết"></textarea>
         <h2>Thời gian nhận hàng</h2>
         <div>
         <label htmlFor="date-picker" style={{ fontWeight: 'bold', marginRight: '10px' }}>Chọn ngày:</label>
             <DatePicker
                 id="date-picker"
-                selected1={startDate}
-                onChange1={handleDateChange}
-                selected={orderData.deliveryDate}
-              onChange={handleDateChangee}
+                selected={startDate}
+                onChange={handleDateChange}
+            //     selected={orderData.deliveryDate}
+            //   onChange={handleDateChangee}
                 dateFormat="dd/MM/yyyy"
                 className="custom-datepicker"
             />
             <div />
           <label htmlFor="districts" className="dropdown-label">Thời gian:</label>
-            <select id="districts" className="dropdown-select" value1={date} onChange2={handledatenow}
-            value={orderData.deliveryTime}
-            onChange={handleChangee}>
+            <select id="districts" className="dropdown-select" value1={date} onChange2={handledatenow}>
                 {datevale.map((date, index) => (
                     <option key={index} value={date}>
                         {date}
                     </option>
                 ))}
             </select>
-            <button className="order-button" type="submit" onClick={handleSubmit}>Đặt hàng</button>
+            {/* <button className="order-button" type="submit" onClick={handleSubmit}>Đặt hàng</button> */}
 
             {/* <button className="order-button" type="submit">Đặt hàng</button> */}
         </div>
@@ -412,7 +448,7 @@ setdate(datenow);
           <p>-Còn lại: Thu ship đồng giá 30k</p>
           <p>Với các đơn thuộc nhóm miễn ship, nếu phí ship thực tế phát sinh cao hơn mức hỗ trợ tối đa đã nêu là 60k, Savor xin phép thu phần chênh lệch ạ (ví dụ 70k - 60k = 10k).</p>
         </div>
-        {/* <button className="order-button" type="submit">Đặt hàng</button> */}
+        <button className="order-button" type="submit">Đặt hàng</button>
       </div>
     </div>
     </div>
