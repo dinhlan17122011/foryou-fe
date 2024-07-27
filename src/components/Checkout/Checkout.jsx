@@ -3,81 +3,45 @@ import axios from 'axios';
 import './Checkout.css'; // Import file CSS
 import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker from 'react-datepicker';
+import { useParams } from 'react-router';
+var MockAdapter = require("axios-mock-adapter");
 
+// This sets the mock adapter on the default instance
 const Checkout = () => {
+  const { idlay } = useParams();
   const [selectedCakeitems, setSelectedCakeitems] = useState([]);
   const [selectedCake, setSelectedCake] = useState([]);
   const [selectedCakeaccessories, setSelectedCakeaccessories] = useState([]);
   const [selectedCakeaccessoriesdata, setSelectedCakeaccessoriesdata] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [wards, setWards] = useState([]);
   const  [accessory,setaccessory]=useState([])
-  const [selectedDistrict, setSelectedDistrict] = useState('Hà Đông');
+  const [selectedDistrict, setSelectedDistrict] = useState('');
+    const [selectedWard, setSelectedWard] = useState('');
   const [error, setError] = useState([]); // Thêm state để lưu lỗi
-  const cartId = '66a0509017e235da3a33d35b'; // Đặt ID của giỏ hàng
+  const cartId = '66a1aa0b1e743edda7f6eb32'; // Đặt ID của giỏ hàng
   const [startDate, setStartDate] = useState(new Date());
   const  [date,setdate]=useState([])
   const [total, setTotal] = useState(0);
   const [totalAccessories, setTotalAccessories] = useState(0);
   const [totalOrder, setTotalOrder] = useState(0);
+  const [id, setid] = useState([]);
+  const orderId = '66a1aa0b1e743edda7f6eb32'
+  const [customer, setCustomer] = useState({
+    orderer: [{ name: '', phone: '' }],
+    ordererSchemarecipient: [{ recipientName: '', recipientPhone: '' }],
+    deliveryaddress: [{ address: '', district: '', ward: '' }],
+    bill: false,
+    note: '',
+    deliverytime: [{ time: '', date: '' }],
+  });
+  const fakedata = {
+    Noirala:'ERR'
+  }
+  const mock = new MockAdapter(axios);
+
+
+
   const ship =30000;
-//   const [orderData, setOrderData] = useState({
-//     // name: '',
-//     // phone: '',
-//     // recipientName: '',
-//     // recipientPhone: '',
-//     // address: '',
-//     // district:'',
-//     // ward: '',
-//     // bill: false,
-//     // notes: '',
-//     // date: new Date(),
-//     // time: '',
-//     items: [
-//         {
-//             'namecake': '',
-//       'price': '',
-//       'quantity': '',
-//       'code': '',
-//       'size': '',
-//       'notecake': '',
-
-//         }
-//     ], // hoặc giá trị mặc định phù hợp
-//     customer: {
-//     "orderer": [
-//         {
-//             name: '',
-//           phone: '',
-
-//         }
-//     ],
-//     "ordererSchemarecipient":[
-//         {
-
-//             recipientName: '',
-//         recipientPhone: '',
-//         }
-//     ],
-//     "deliveryaddress": [
-//         {
-
-//             address: '',
-//           district:'',
-//           ward: '',
-//         }
-//     ],
-//     "deliverytime": [
-//         {
-//             date: new Date(),
-//           time: '',
-
-//         }
-//     ]
-//     }, // hoặc giá trị mặc định phù hợp
-//     status: '', // hoặc giá trị mặc định phù hợp
-//     deliveryDate: null // hoặc giá trị mặc định phù hợp
-//   });// Doạn này ko lấy đc dữ liệu
   useEffect(() => {
     calculateTotal();
   }, [selectedCakeitems, accessory]);
@@ -104,51 +68,7 @@ const Checkout = () => {
     setTotalOrder(totalOrderAmount);
     console.log(totalOrderAmount);
   };
-
-
-//   const handleChangee = (e) => {
-//       const { name, value, type, checked } = e.target;
-//       setOrderData({
-//     ...selectedCakeitems,
-//     [name]: type === 'checkbox' ? checked : value,
-// });
-// };
-
-// const handleDateChangee = (date) => {
-//     setOrderData(prevState => ({
-//         ...prevState,
-//         deliveryDate: date,
-//     }));
-// };
-// console.log(orderData);
-// const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     console.log(orderData); // Kiểm tra dữ liệu trước khi gửi lên BE
-
-//     try {
-//         const response = await axios.put('http://localhost:3000/checkout/66a0509017e235da3a33d35b', orderData);
-//         console.log('Order saved successfully:', response.data.customer);
-//     } catch (error) {
-//         console.error('Error saving order:', error);
-//         if (error.response) {
-//             console.error('Data:', error.response.data);
-//             console.error('Status:', error.response.status);
-//             console.error('Headers:', error.response.headers);
-//         } else if (error.request) {
-//             console.error('Request:', error.request);
-//         } else {
-//             console.error('Message:', error.message);
-//         }
-//     }
-// };
-
-
-const districts = [
-    'Đống Đa',
-    'Thanh Xuân',
-    'Hà Đông'
-];
-const datevale=[
+  const datevale=[
     "10h-11h",
     "11h-12h",
     "12h-13h",
@@ -161,6 +81,12 @@ const datevale=[
     "19h-20h",
 "20h-21h",
 ]
+const districts = [
+    'Đống Đa',
+    'Thanh Xuân',
+    'Hà Đông'
+];
+
 
 const wardsByDistrict = {
     'Đống Đa': ["Văn Miếu", "Văn Chương", "Trung Tự", "Trung Phụng", "Trung Liệt", "Thổ Quan", "Thịnh Quang", "Quốc Tử Giám"," Quang Trung", "Phương Mai", "Phương Liên", "Ô Chợ Dừa", "Ngã Tư Sở", "Nam Đồng"," Láng Thượng"," Láng Hạ", "Kim Liên", "Khương Thượng", "Khâm Thiên", "Hàng Bột", "Cát Linh"],
@@ -168,14 +94,17 @@ const wardsByDistrict = {
 'Hà Đông': ["Biên Giang", "Đồng Mai", "Yên Nghĩa", "Dương Nội"," Hà Cầu", "La Khê", "Mộ Lao"," Nguyễn Trãi", "Phú La", "Phú Lãm", "Phú Lương", "Kiến Hưng", "Phúc La", "Quang Trung", "Vạn Phúc", "Văn Quán", "Yết Kiêu"]
 };
 
-
 const handleDistrictChange = (event) => {
-    const district = event.target.value;
-    setSelectedDistrict(district);
-    setWards(wardsByDistrict);
+    setSelectedDistrict(event.target.value);
+    setSelectedWard(''); // Reset selected ward when district changes
 };
-console.log(wardsByDistrict);//undied
-console.log();
+
+const handleWardChange = (event) => {
+    setSelectedWard(event.target.value);
+};
+
+const wards = selectedDistrict ? wardsByDistrict[selectedDistrict] : [];
+console.log(wards);
 const handleChange = (event) => {
 setSelectedDistrict(event.target.value);
 };
@@ -186,36 +115,79 @@ const handledatenow=(event) =>{
 const datenow = event.target.value;
 setdate(datenow);
 }
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch selected cake items and customer info
-        const response = await axios.get(`http://localhost:3000/checkout/66a1aa0b1e743edda7f6eb32`);
-        setSelectedCakeitems(response.data.items[0]);
-        setSelectedCake(response.data.customer);
-        setaccessory(response.data.Accessory)
-        console.log(response.data.items[0]);
-        // Fetch accessories
-        const responseAccessories = await axios.get('http://localhost:3000/accessory');
-        const uniqueCategories = [...new Set(responseAccessories.data.map(item => item.category))];
-        setSelectedCakeaccessories(responseAccessories.data);
-        setCategories(uniqueCategories);
-      } catch (error) {
-        setError(error.message); // Lưu thông báo lỗi vào state
-        console.error('Error fetching data:', error);
-      }
-    };
+// mock.onGet('http://localhost:3000/checkout/66a1aa0b1e743edda7f6eb32').reply(200, fakedata)
+useEffect(() => {
+  const Axiosdata = async () => {
+    try {
+      // const response = await axios.get('http://localhost:3000/checkout/66a1aa0b1e743edda7f6eb32', {
+      //   validateStatus: (so)=>{
+      //     if ( so < 500)
+      //       console.log('ERR :',so);
+      //   }
+      // });
+      const response = await axios.get(`http://localhost:3000/checkout/66a1aa0b1e743edda7f6eb32`);
+      // setSelectedCake(response.data.items);
+      // setSelectedCakeitems(response.data.items[0]);
+      // setaccessory(response.data.Accessory);
+      console.log(response.data);
 
-    fetchData();
-  }, []);
+      // const responseAccessories = await axios.get('http://localhost:3000/accessory');
+      // const uniqueCategories = [...new Set(responseAccessories.data.map(item => item.category))];
+      // setSelectedCakeaccessories(responseAccessories.data);
+      // setCategories(uniqueCategories);
+      // console.log(responseAccessories.data);
+
+      // const responseCustomer = await axios.get('http://localhost:3000/checkout/66a1aa0b1e743edda7f6eb32');
+      // setCustomer(responseCustomer.data.customer || {
+      //   orderer: [{ name: '', phone: '' }],
+      //   deliveryaddress: [{ address: '', district: '', ward: '' }],
+      //   ordererSchemarecipient: [{ recipientName: '', recipientPhone: '' }],
+      //   bill: '',
+      //   note: '',
+      //   deliverytime: [{ time: '', date: '' }],
+      // });
+      // console.log(responseCustomer.data.customer);
+
+    } catch (error) {
+      setError(error.message);
+      console.log(error.toJSON());
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  Axiosdata();
+}, []);
+  const handleChangee = (e, field, index) => {
+    const { name, value } = e.target;
+    const updatedCustomer = { ...customer };
+
+    if (Array.isArray(updatedCustomer[field])) {
+      updatedCustomer[field][index][name] = value;
+    } else {
+      updatedCustomer[field] = value;
+    }
+    
+    setCustomer(updatedCustomer);
+  };
+  
+  console.log(customer);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.put(`http://localhost:3000/checkout/66a1aa0b1e743edda7f6eb32`, { customer });
+      console.log(response.data.customer);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleAddToCart = async (item) => {
     try {
-      const { _id, name, number,img } = item; // Thêm 'price'
+      const { _id, name, number } = item; // Thêm 'price'
       const quantity = 1; // Đảm bảo thêm quantity với giá trị mặc định là 1
   
       const response = await axios.post('http://localhost:3000/checkout/66a1aa0b1e743edda7f6eb32', {
         cartId,
-        img,
         name,
         number, // Thêm price
         quantity // Thêm quantity
@@ -307,15 +279,45 @@ setdate(datenow);
     <div className='div-left'>
         <h1>Xác nhận đơn hàng</h1>
         <div></div>
+        {/* <form onSubmit={handleSubmit}>
+        {Array.isArray(customer.orderer) && customer.orderer.length > 0 ? (
+        customer.orderer.map((orderer, index) => (
+          <div key={index}>
+             <h2>Thông tin người đặt</h2>
+            <input
+              placeholder="Họ và tên"
+              type="text"
+              name="name"
+              value={orderer.name || ''}
+              onChange={(e) => handleChangee(e, 'orderer', index)}
+            />
+            <div></div>
+            <input
+              placeholder="Số điện thoại"
+              type="text"
+              name="phone"
+              value={orderer.phone || ''}
+              onChange={(e) => handleChangee(e, 'orderer', index)}
+            />
+          </div>
+        ))
+      ) : (
+        <p>LỖI</p>
+      )}
+
+        </form> */}
+
         <h2>Thông tin người đặt</h2>
         <input
         placeholder="Họ và tên"
-        
+        value={customer.orderer[0].name}
+        onChange={(e) => handleChangee(e, 'orderer', 0)}
         />
         <div></div>
         <input
         placeholder="Số điện thoại"
-        
+        value={customer.orderer[0].phone}
+        onChange={(e) => handleChangee(e, 'orderer', 0)}
         />
 
         <h2>Thông tin người nhận</h2>
@@ -330,22 +332,28 @@ setdate(datenow);
         />
         <h2>Địa chỉ nhận hàng</h2>  
         <label htmlFor="districts" className="dropdown-label">Chọn Quận:</label>
-            <select id="districts" className="dropdown-select" value={selectedDistrict} onChange={handleDistrictChange} >
+            <select id="districts" className="dropdown-select" value={selectedDistrict} onChange={handleDistrictChange}>
+                <option value="">--Chọn Quận--</option>
                 {districts.map((district, index) => (
-                    <option key={index} value={district} >
+                    <option key={index} value={district}>
                         {district}
                     </option>
                 ))}
             </select>
             
-            <label htmlFor="wards" className="dropdown-label">Chọn Phường:</label>
-            <select id="wards" className="dropdown-select"  value={setWards} onChange={handleDistrictChange} >
-                {wards.map((ward, index) => (
-                    <option key={index} value={ward}>
-                        {ward}
-                    </option>
-                ))}
-            </select>
+
+                
+                    <label htmlFor="wards" className="dropdown-label">Chọn Phường:</label>
+                    <select id="wards" className="dropdown-select" value={selectedWard} onChange={handleWardChange}>
+                        <option value="">--Chọn Phường--</option>
+                        {wards.map((ward, index) => (
+                            <option key={index} value={ward}>
+                                {ward}
+                            </option>
+                        ))}
+                    </select>
+                
+
             <div></div>
 
           <input
@@ -369,8 +377,6 @@ setdate(datenow);
                 id="date-picker"
                 selected={startDate}
                 onChange={handleDateChange}
-            //     selected={orderData.deliveryDate}
-            //   onChange={handleDateChangee}
                 dateFormat="dd/MM/yyyy"
                 className="custom-datepicker"
             />

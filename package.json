@@ -32,7 +32,6 @@
     "start": "react-scripts  --openssl-legacy-provider start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "proxy": "http://localhost:8080",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -54,6 +53,7 @@
     ]
   },
   "devDependencies": {
+    "axios-mock-adapter": "^1.22.0",
     "prettier": "3.3.3"
   }
 }
