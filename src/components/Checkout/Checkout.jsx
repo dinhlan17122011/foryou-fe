@@ -1,14 +1,13 @@
+"use strict";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Checkout.css'; // Import file CSS
 import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker from 'react-datepicker';
-import { useParams } from 'react-router';
 var MockAdapter = require("axios-mock-adapter");
 
 // This sets the mock adapter on the default instance
 const Checkout = () => {
-  const { idlay } = useParams();
   const [selectedCakeitems, setSelectedCakeitems] = useState([]);
   const [selectedCake, setSelectedCake] = useState([]);
   const [selectedCakeaccessories, setSelectedCakeaccessories] = useState([]);
@@ -117,46 +116,57 @@ setdate(datenow);
 }
 // mock.onGet('http://localhost:3000/checkout/66a1aa0b1e743edda7f6eb32').reply(200, fakedata)
 useEffect(() => {
-  const Axiosdata = async () => {
-    try {
-      // const response = await axios.get('http://localhost:3000/checkout/66a1aa0b1e743edda7f6eb32', {
-      //   validateStatus: (so)=>{
-      //     if ( so < 500)
-      //       console.log('ERR :',so);
-      //   }
-      // });
-      const response = await axios.get(`http://localhost:3000/checkout/66a1aa0b1e743edda7f6eb32`);
-      // setSelectedCake(response.data.items);
-      // setSelectedCakeitems(response.data.items[0]);
-      // setaccessory(response.data.Accessory);
-      console.log(response.data);
-
-      // const responseAccessories = await axios.get('http://localhost:3000/accessory');
-      // const uniqueCategories = [...new Set(responseAccessories.data.map(item => item.category))];
-      // setSelectedCakeaccessories(responseAccessories.data);
-      // setCategories(uniqueCategories);
-      // console.log(responseAccessories.data);
-
-      // const responseCustomer = await axios.get('http://localhost:3000/checkout/66a1aa0b1e743edda7f6eb32');
-      // setCustomer(responseCustomer.data.customer || {
-      //   orderer: [{ name: '', phone: '' }],
-      //   deliveryaddress: [{ address: '', district: '', ward: '' }],
-      //   ordererSchemarecipient: [{ recipientName: '', recipientPhone: '' }],
-      //   bill: '',
-      //   note: '',
-      //   deliverytime: [{ time: '', date: '' }],
-      // });
-      // console.log(responseCustomer.data.customer);
-
-    } catch (error) {
-      setError(error.message);
-      console.log(error.toJSON());
-      console.error('Error fetching data:', error);
-    }
-  };
-
+  
   Axiosdata();
 }, []);
+const Axiosdata = async () => {
+  function response ()  {
+    axios.get('http://localhost:3000/checkout/66a893f8d5a92aa25782e5a3')
+      .then(response => {
+        const data = response.data;
+        console.log('DATA:', data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  }
+  response();
+  console.log(response());
+    // console.log(response)
+  // console.log(response);
+  // setSelectedCake(response.data.items[0]);
+  // setSelectedCakeitems(response.data.items[0]);
+  // setSelectedCakeitems((response.data.items && response.data.items[0]) || {});
+  // setaccessory(response.data.Accessory);
+  // console.log(response.data);
+  // const data = response.data;
+  // response.send(data);
+  // if (response.data) {
+  //   // console.log('Items:', response.data.items);
+  //   // console.log('Customer:', response.data.customer);
+  //   // console.log('Accessory:', response.data.Accessory);
+  // } else {
+  //   console.log('Response Data is undefined or null');
+  // }
+
+  // const responseAccessories = await axios.get('http://localhost:3000/accessory');
+  // const uniqueCategories = [...new Set(responseAccessories.data.map(item => item.category))];
+  // setSelectedCakeaccessories(responseAccessories.data);
+  // setCategories(uniqueCategories);
+  // console.log(responseAccessories.data);
+
+  // const responseCustomer = await axios.get('http://localhost:3000/checkout/66a1aa0b1e743edda7f6eb32');
+  // setCustomer(responseCustomer.data.customer || {
+  //   orderer: [{ name: '', phone: '' }],
+  //   deliveryaddress: [{ address: '', district: '', ward: '' }],
+  //   ordererSchemarecipient: [{ recipientName: '', recipientPhone: '' }],
+  //   bill: '',
+  //   note: '',
+  //   deliverytime: [{ time: '', date: '' }],
+  // });
+  // console.log(responseCustomer.data.customer)
+};
+
   const handleChangee = (e, field, index) => {
     const { name, value } = e.target;
     const updatedCustomer = { ...customer };
@@ -174,8 +184,8 @@ useEffect(() => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:3000/checkout/66a1aa0b1e743edda7f6eb32`, { customer });
-      console.log(response.data.customer);
+      const responsedata = await axios.put(`http://localhost:3000/checkout/66a1aa0b1e743edda7f6eb32`, { customer });
+      console.log(responsedata.data.customer);
     } catch (error) {
       console.error(error);
     }

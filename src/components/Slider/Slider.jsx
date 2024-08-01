@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import req from '../../axios/index'
 import './slider.css'
 import 'react-slideshow-image/dist/styles.css'
 import { Slide } from 'react-slideshow-image';
